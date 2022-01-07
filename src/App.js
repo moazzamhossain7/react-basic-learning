@@ -1,7 +1,10 @@
+import Clock from './components/Clock';
+
 function App() {
+    console.log('App component rendered!');
     return (
         <div>
-            <h2>Hello World</h2>
+            <Clock locale="bn-BD" />
         </div>
     );
 }
