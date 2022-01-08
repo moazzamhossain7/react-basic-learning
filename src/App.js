@@ -8,10 +8,23 @@ import Counter from './components/render-prop/Counter';
 class App extends React.Component {
     state = {
         theme: 'dark',
+        switchTheme: () => {
+            this.setState(({ theme }) => {
+                if (theme === 'dark') {
+                    return {
+                        theme: 'light',
+                    };
+                }
+                return {
+                    theme: 'dark',
+                };
+            });
+        },
     };
 
     render() {
-        const { theme } = this.state;
+        const { theme, switchTheme } = this.state;
+        console.log('App component rendered');
 
         return (
             <div className="appName">
@@ -21,7 +34,7 @@ class App extends React.Component {
                     )}
                 </Counter>
 
-                <ThemeContext.Provider value={{ theme }}>
+                <ThemeContext.Provider value={{ theme, switchTheme }}>
                     <Section />
                 </ThemeContext.Provider>
             </div>
