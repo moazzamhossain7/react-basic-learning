@@ -1,31 +1,41 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React from 'react';
-import Clock from './components/Hooks/Clock';
+import React, { useCallback, useMemo, useState } from 'react';
+import Button from './components/Hooks/Button';
+import ShowCount from './components/Hooks/ShowCount';
+import Title from './components/Hooks/Title';
 
-class App extends React.Component {
-    state = {
-        show: true,
-    };
+function App() {
+    const [count1, setCount1] = useState(0);
+    const [count2, setCount2] = useState(0);
 
-    changeToggle = () => {
-        this.setState((prevState) => ({
-            show: !prevState.show,
-        }));
-    };
+    const incrementByOne = useCallback(() => {
+        setCount1((prevCount) => prevCount + 1);
+    }, []);
 
-    render() {
-        const { show } = this.state;
+    const incrementByFive = useCallback(() => {
+        setCount2((prevCount) => prevCount + 5);
+    }, []);
 
-        return (
-            <div className="appName">
-                {show && <Clock />}
-                <br />
-                <button type="button" onClick={this.changeToggle}>
-                    Toggle
-                </button>
-            </div>
-        );
-    }
+    const isEvenOrOdd = useMemo(() => {
+        let i = 0;
+        while (i < 10000) {
+            console.log(i);
+            i += 1;
+        }
+
+        return count1 % 2 === 0;
+    }, [count1]);
+    return (
+        <div className="appName">
+            <Title />
+            <ShowCount count={count1} title="Counter One" />
+            <Button incrementCount={incrementByOne}>Increment By One</Button>
+            <p>{isEvenOrOdd ? 'Even' : 'Odd'}</p>
+            <hr />
+            <ShowCount count={count2} title="Counter Two" />
+            <Button incrementCount={incrementByFive}>Increment By Five</Button>
+        </div>
+    );
 }
 
 export default App;
