@@ -1,12 +1,28 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React from 'react';
-import Todo from './components/Hooks/Todo';
+import Clock from './components/Hooks/Clock';
 
 class App extends React.Component {
+    state = {
+        show: true,
+    };
+
+    changeToggle = () => {
+        this.setState((prevState) => ({
+            show: !prevState.show,
+        }));
+    };
+
     render() {
+        const { show } = this.state;
+
         return (
             <div className="appName">
-                <Todo />
+                {show && <Clock />}
+                <br />
+                <button type="button" onClick={this.changeToggle}>
+                    Toggle
+                </button>
             </div>
         );
     }
