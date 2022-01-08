@@ -1,36 +1,32 @@
-// import Clock from './components/Clock';
-// import ClockList from './components/ClockList';
-// import Form from './components/Form';
-// import Calculator from './components/Calculator';
-// import Bracket from './components/composition/Bracket';
-// import Emoji from './components/composition/Emoji';
-// import Text from './components/composition/Text';
-
-// import ClickCounter from './components/HOC/ClickCounter';
-// import HoverCounter from './components/HOC/HoverCounter';
-
-import ClickCounter from './components/render-prop/ClickCounter';
+/* eslint-disable react/jsx-no-constructed-context-values */
+import React from 'react';
+import ClickCounter from './components/context-api/ClickCounter';
+import ThemeContext from './components/context-api/contexts/themeContext';
+import Section from './components/context-api/Section';
 import Counter from './components/render-prop/Counter';
-import HoverCounter from './components/render-prop/HoverCounter';
 
-function App() {
-    // const quantities = [1, 2, 3, 4];
+class App extends React.Component {
+    state = {
+        theme: 'dark',
+    };
 
-    return (
-        <div className="appName">
-            <Counter>
-                {(count, incrementCount) => (
-                    <ClickCounter count={count} incrementCounter={incrementCount} />
-                )}
-            </Counter>
+    render() {
+        const { theme } = this.state;
 
-            <Counter>
-                {(count, incrementCount) => (
-                    <HoverCounter count={count} incrementCounter={incrementCount} />
-                )}
-            </Counter>
-        </div>
-    );
+        return (
+            <div className="appName">
+                <Counter>
+                    {(count, incrementCount) => (
+                        <ClickCounter count={count} incrementCounter={incrementCount} />
+                    )}
+                </Counter>
+
+                <ThemeContext.Provider value={{ theme }}>
+                    <Section />
+                </ThemeContext.Provider>
+            </div>
+        );
+    }
 }
 
 export default App;
