@@ -1,24 +1,26 @@
-import { useState } from 'react';
-import { ThemeProvider } from 'styled-components';
-import './assets/css/dark.css';
-import GlobalStyle from './styled-component/styled/Global.styles';
-import Theme from './styled-component/Theme';
-import Tutorial from './styled-component/Tutorial';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import About from './components/router/About';
+import Contact from './components/router/Contact';
+import Error from './components/router/Error';
+import Home from './components/router/Home';
+import Login from './components/router/Login';
+import Navbar from './components/router/Navbar';
+import Post from './components/router/Post';
+import Service from './components/router/Service';
 
 export default function App() {
-    const [theme, setTheme] = useState('dark');
-
-    const handleClick = () => {
-        setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
-    };
-
     return (
-        <>
-            <GlobalStyle />
-            <Theme change={handleClick} />
-            <ThemeProvider theme={{ type: theme }}>
-                <Tutorial />
-            </ThemeProvider>
-        </>
+        <Router>
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/service" element={<Service />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/post/:category" element={<Post />} />
+                <Route path="*" element={<Error />} />
+            </Routes>
+        </Router>
     );
 }
