@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PrivetOutlet from './Auth/PrivetOutlet';
 import About from './components/router/About';
 import Contact from './components/router/Contact';
 import Error from './components/router/Error';
@@ -14,11 +15,15 @@ export default function App() {
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/service" element={<Service />} />
+
+                <Route path="/*" element={<PrivetOutlet />}>
+                    <Route path="about" element={<About />} />
+                    <Route path="contact" element={<Contact />} />
+                    <Route path="service" element={<Service />} />
+                    <Route path="post/:category" element={<Post />} />
+                </Route>
+
                 <Route path="/login" element={<Login />} />
-                <Route path="/post/:category" element={<Post />} />
                 <Route path="*" element={<Error />} />
             </Routes>
         </Router>
